@@ -11,12 +11,14 @@ public class PlayerBehavior : MonoBehaviour
     public CollidersController collidersController;
 
     [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private SpriteRenderer spriteRenderer;
 
     
 
     // Start is called before the first frame update
     void Start()
     {
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -43,9 +45,16 @@ public class PlayerBehavior : MonoBehaviour
         {
             switch (collider.gameObject.tag)
             {
+                case "LowerTrigger1":
+                levelLocation = (levelLocation == 1) ? 2 : 1;
+                collidersController.ChangeLevelLocation(levelLocation);
+                UpdateLayerOrder();
+                break;
+                
                 case "LowerTrigger2":
                 levelLocation = (levelLocation == 3) ? 2 : 3;
                 collidersController.ChangeLevelLocation(levelLocation);
+                UpdateLayerOrder();
                 break;
     
                 default:
@@ -53,4 +62,25 @@ public class PlayerBehavior : MonoBehaviour
             }
         }
     }
+
+    private void UpdateLayerOrder()
+    {
+        switch (levelLocation)
+        {
+            case 1:
+            spriteRenderer.sortingOrder = 31;
+            break;
+
+            case 2:
+            spriteRenderer.sortingOrder = 11;
+            break;
+
+            case 3:
+            spriteRenderer.sortingOrder = -9;
+            break;
+
+            default:
+            break;
+        }
+    } 
 }

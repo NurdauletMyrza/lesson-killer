@@ -46,6 +46,12 @@ public class CollidersController : MonoBehaviour
         levelLocation = newLevel;
         switch (levelLocation)
         {
+            case 1:
+            floorCollider2.enabled = false;
+            floorCollider3.enabled = false;
+            StaircaseCollidersEnabled(false);
+            break;
+
             case 2:
             floorCollider2.enabled = false;
             floorCollider3.enabled = false;
