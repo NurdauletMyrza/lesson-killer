@@ -8,11 +8,13 @@ public class CollidersController : MonoBehaviour
     public Collider2D floorCollider2;
     public Collider2D floorCollider3;
     private GameObject[] lowerStaircaseColliders;
+    private GameObject[] upperStaircaseColliders;
     private int levelLocation = 3;
 
     // Start is called before the first frame update
     void Start()
     {
+        upperStaircaseColliders = GameObject.FindGameObjectsWithTag("UpperStaircaseCollider");
         lowerStaircaseColliders = GameObject.FindGameObjectsWithTag("LowerStaircaseCollider");
         // switch (levelLocation)
         // {
@@ -47,21 +49,29 @@ public class CollidersController : MonoBehaviour
         switch (levelLocation)
         {
             case 1:
-            floorCollider2.enabled = false;
-            floorCollider3.enabled = false;
-            StaircaseCollidersEnabled(false);
+            LowerStaircaseCollidersEnabled(false);
             break;
 
             case 2:
             floorCollider2.enabled = false;
             floorCollider3.enabled = false;
-            StaircaseCollidersEnabled(true);
+            LowerStaircaseCollidersEnabled(true);
             break;
             
             case 3:
             floorCollider2.enabled = true;
+            LowerStaircaseCollidersEnabled(false);
+            UpperStaircaseCollidersEnabled(false);
+            break;
+
+            case 4:
+            UpperStaircaseCollidersEnabled(true);
             floorCollider3.enabled = false;
-            StaircaseCollidersEnabled(false);
+            break;
+
+            case 5:
+            floorCollider3.enabled = true;
+            UpperStaircaseCollidersEnabled(false);
             break;
 
             default:
@@ -69,10 +79,17 @@ public class CollidersController : MonoBehaviour
         }
     }
 
-    private void StaircaseCollidersEnabled(bool b)
+    private void LowerStaircaseCollidersEnabled(bool b)
     {
-        Debug.Log("Run");
         foreach (GameObject s in lowerStaircaseColliders)
+        {
+            s.GetComponent<EdgeCollider2D>().enabled = b;
+        }
+    }
+
+    private void UpperStaircaseCollidersEnabled(bool b)
+    {
+        foreach (GameObject s in upperStaircaseColliders)
         {
             s.GetComponent<EdgeCollider2D>().enabled = b;
         }

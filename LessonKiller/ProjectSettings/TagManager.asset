@@ -7,6 +7,9 @@ TagManager:
   - LowerStaircaseCollider
   - LowerTrigger2
   - LowerTrigger1
+  - UpperTrigger1
+  - UpperTrigger2
+  - UpperStaircaseCollider
   layers:
   - Default
   - TransparentFX
